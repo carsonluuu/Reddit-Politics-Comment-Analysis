@@ -65,12 +65,12 @@ def main(context):
     StructField("djt", IntegerType())
 	])
 
-    # comments = sqlContext.read.json("comments-minimal.json.bz2")
-    # submissions = sqlContext.read.json("submissions.json.bz2")
+    comments = sqlContext.read.json("comments-minimal.json.bz2")
+    submissions = sqlContext.read.json("submissions.json.bz2")
     labeled_data = sqlContext.read.load("labeled_data.csv", format="csv", schema=schema, header="true")
 	
-    # comments.select("*").write.save("comments.parquet", format="parquet")
-    # submissions.select("*").write.save("submissions.parquet", format="parquet")
+    comments.select("*").write.save("comments.parquet", format="parquet")
+    submissions.select("*").write.save("submissions.parquet", format="parquet")
     labeled_data.select("*").write.save("label.parquet", format="parquet")
     
     comments = spark.read.load("comments.parquet")
